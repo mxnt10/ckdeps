@@ -1,7 +1,21 @@
 <h1 align="center">
-    CkDeps
+    CkDeps - Check Dependencies
     <br/><br/>
     <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview1.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview2.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview3.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview4.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview5.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview6.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview7.png"></a>
+    <br/><br/>
+    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview8.png"></a>
 </h1>
 
 Searches for installed packages and missing dependencies in binary executables.
