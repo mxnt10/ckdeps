@@ -6,9 +6,9 @@
 
 <p align="center">
     Searches for installed packages and missing dependencies in binary executables.
-</p>
+</p><br/>
 
-<h1 align="center">
+<h3 align="center">
     Commands To Use
     <br/><br/>
     <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview2.png"></a>
@@ -24,7 +24,7 @@
     <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview7.png"></a>
     <br/><br/>
     <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview8.png"></a>
-</h1>
+</h3>
 
 
 ### Installation instructions
