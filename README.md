@@ -1,7 +1,8 @@
 <html>
     <body>
         <h1 align="center">
-            CkDeps - Check Dependencies<hr/>
+            CkDeps - Check Dependencies
+            <br/><br/>
             <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview1.png"></a>
         </h1>
         <h3 align="center">
