@@ -1,31 +1,30 @@
-<h1 align="center">
-    CkDeps - Check Dependencies
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview1.png"></a>
-</h1>
-
-<p align="center">
-    Searches for installed packages and missing dependencies in binary executables.
-</p><br/>
-
-## Commands To Use
-
-<h1 align="center">
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview2.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview3.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview4.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview5.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview6.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview7.png"></a>
-    <br/><br/>
-    <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview8.png"></a>
-</h>
-
+<html>
+    <body>
+        <h1 align="center">
+            CkDeps - Check Dependencies<hr/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview1.png"></a>
+        </h1>
+        <h3 align="center">
+            <b>Searches for installed packages and missing dependencies in binary executables.</b>
+        </h3><br/>
+        <h2>Usage Examples</h2>
+        <h1 align="center">
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview2.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview3.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview4.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview5.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview6.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview7.png"></a>
+            <br/><br/>
+            <a><img src="https://raw.githubusercontent.com/mxnt10/ckdeps/master/preview/preview8.png"></a>
+        </h><br/>
+    </body>
+</html>
 
 ## Installation instructions
 
