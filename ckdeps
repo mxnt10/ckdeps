@@ -4,8 +4,8 @@
 # ###                                                                                                 ###
 # ### CKDeps - Versão 6.0 - Analisa as Dependências dos Aplicativos Binários Instalado no Slackware.  ###
 # ###                                                                                                 ###
-# ### Recriação do Projeto: 04/04/2021                                                                ###
-# ### Última Atualização:   25/02/2022                                                                ###
+# ### Criação do Projeto: 04/04/2021                                                                  ###
+# ### Última Atualização: 13/03/2022                                                                  ###
 # ###                                                                                                 ###
 # ### Criado por Mauricio Ferrari. Santa Catarina, Brasil.                                            ###
 # ###                                                                                                 ###
@@ -29,7 +29,6 @@ APKG='FALSE'
 CPKG='FALSE'
 
 PKGS='/var/log/packages'
-ARG=${*#$1}
 
 
 # ### Exibição de Informação ###
@@ -63,6 +62,7 @@ ${G}Exemplos de Uso:
 	set - $* $(cat -) # Suporte a Redirecionamento
 }
 
+ARG=${*#$1}
 [ -z "$ARG" ] && info_view
 
 while getopts bsSci OPTION 2>&-; do
