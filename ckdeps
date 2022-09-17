@@ -2,10 +2,10 @@
 #
 # ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 # ###                                                                                                 ###
-# ### CKDeps - Versão 6.0 - Analisa as Dependências dos Aplicativos Binários Instalado no Slackware.  ###
+# ### CKDeps - Versão 6.1 - Analisa as Dependências dos Aplicativos Binários Instalado no Slackware.  ###
 # ###                                                                                                 ###
 # ### Criação do Projeto: 04/04/2021                                                                  ###
-# ### Última Atualização: 13/03/2022                                                                  ###
+# ### Última Atualização: 27/03/2022                                                                  ###
 # ###                                                                                                 ###
 # ### Criado por Mauricio Ferrari. Santa Catarina, Brasil.                                            ###
 # ###                                                                                                 ###
@@ -27,8 +27,6 @@ CLIB='FALSE'
 SPKG='FALSE'
 APKG='FALSE'
 CPKG='FALSE'
-
-PKGS='/var/log/packages'
 
 
 # ### Exibição de Informação ###
@@ -103,12 +101,18 @@ done
 }
 
 
+# ### Operações para Pesquisas ###
+
+cd /var/log/packages
+LST=$(printf "%s\n" *)
+
+
 # ### Pesquisa de Pacotes ###
 
 [ "$SPKG" == "TRUE" ] && {
 	for PKG in $ARG
 	{
-		FOUND=$(echo -e "$FOUND\n$(grep $PARM "$PKG" <(ls $PKGS))")
+		FOUND=$(echo -e "$FOUND\n$(grep $PARM "$PKG" <<< $LST)")
 	}
 	FOUND=$(sort -u <<< $FOUND)
 	printf "\n${Y}Pacotes Encontrados: $B($(wc -w <<< $FOUND))$C$(sed "s/^/	/" <(sort <<< $FOUND))$T\n\n"
@@ -121,7 +125,7 @@ done
 [ "$APKG" == "TRUE" ] && {
 	for PKG in $ARG
 	{
-		VERIFY=$(grep $PARM "^$PKG-[0-9]" <(ls $PKGS))
+		VERIFY=$(grep $PARM "^$PKG-[0-9]" <<< $LST)
 		[ ! "$VERIFY" ] && NOTFOUND=$(echo -e "$NOTFOUND\n\t$PKG") || FOUND=$(echo -e "$FOUND\n\t$VERIFY")
 	}
 	printf "\n${Y}Pacotes Encontrados: $B($(wc -w <<< $FOUND))$G$(sort <<< $FOUND)$T\n"
@@ -135,9 +139,9 @@ done
 [ "$CPKG" == "TRUE" ] && {
 	for PKG in $(sort <(fmt -1 <<< $ARG))
 	{
-		CNTPKG=$(grep $PARM "$PKG" <(grep -vE ':|/doc/|install/|/$' $PKGS/*))
-		CNTPKG=$(sed "s|$PKGS/|	|g;s|:\([[:alnum:]]*[[:punct:]]*\)*||g" <<< $CNTPKG)
-		NMPKG=$(sort -u <<< $CNTPKG)
+		CNTPKG=$(grep $PARM "$PKG" <(grep -vE ':|/doc/|install/|/$' $LST))
+		CNTPKG=$(sed "s|:\([[:alnum:]]*[[:punct:]]*\)*||g" <<< $CNTPKG)
+		NMPKG=$(sed "s/^/\t/g" <(sort -u <<< $CNTPKG))
 		FOUND=$(echo -e "$FOUND\n\n$Y$PKG: $B($(wc -w <<< $NMPKG)) \n$C$NMPKG$T")
 	}
 	printf "$(sed "1d" <<< $FOUND)\n\n"
