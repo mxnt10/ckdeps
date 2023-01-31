@@ -1,0 +1,149 @@
+#!/bin/bash
+#
+# ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
+# ###                                                                                                 ###
+# ### CKDeps - Versão 6.1 - Analisa as Dependências dos Aplicativos Binários Instalado no Slackware.  ###
+# ###                                                                                                 ###
+# ### Criação do Projeto: 04/04/2021                                                                  ###
+# ### Última Atualização: 27/03/2022                                                                  ###
+# ###                                                                                                 ###
+# ### Criado por Mauricio Ferrari. Santa Catarina, Brasil.                                            ###
+# ###                                                                                                 ###
+# ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
+#
+############################################################################################################
+
+
+# ### Definição de Variáveis ###
+
+R='\e[31m'
+G='\e[32m'
+Y='\e[33m'
+B='\e[34m'
+C='\e[36m'
+T='\e[m'
+
+CLIB='FALSE'
+SPKG='FALSE'
+APKG='FALSE'
+CPKG='FALSE'
+
+
+# ### Exibição de Informação ###
+
+info_view()
+{
+	printf "\n${B}CKDeps v$(grep -Eo "[0-9].[0-9]" <(head -5 $0))
+Pesquisa por Pacotes Instalados e Procura por Dependências Faltantes em Binários.\n
+${G}Sintaxe: $Y${0##*/} $R<Parâmetros> \e[33mArgumentos\n
+${G}Parâmetros:
+	$R-b <binário> $B:$Y Pesquisa por Dependências em Executáveis Binários.
+	$R-s <pacotes> $B:$Y Pesquisa Básica de Pacotes Instalados no Sistema.
+	$R-S <pacotes> $B:$Y Pesquisa Avançada de Pacotes Instalados no Sistema.
+	$R-c <arquivo> $B:$Y Pesquisa por um Arquivo no Conteúdo dos Pacotes Instalados.\n
+${G}Parâmetros Extras:
+	${R}i $B:$Y Ignora Diferenças Entre Maiúsculas/Minúsculas.
+	    Pode ser usado com os Parâmetros$R s$Y,${R}S$Y e$R c$Y.\n
+${G}Exemplos de Uso:
+	$Y${0##*/} $R-b$C /usr/bin/megasync
+	$Y${0##*/} $R-s$C gcc libtorrent
+	$Y${0##*/} $R-Si$C qmplay2 wxgtk3
+	$Y${0##*/} $R-c$C libass libXv\n\n$T"; exit 0
+}
+
+
+# ### Entrada de Parâmetros ###
+
+[ -t 0 ] && {
+	[ ! "$1" ] && info_view || true
+} || {
+	set - $* $(cat -) # Suporte a Redirecionamento
+}
+
+ARG=${*#$1}
+[ -z "$ARG" ] && info_view
+
+while getopts bsSci OPTION 2>&-; do
+	case $OPTION in
+		'b') [ "$S" != "TRUE" ] && { CLIB=TRUE; S=TRUE; } || info_view ;;
+		's') [ "$S" != "TRUE" ] && { SPKG=TRUE; S=TRUE; } || info_view ;;
+		'S') [ "$S" != "TRUE" ] && { APKG=TRUE; S=TRUE; } || info_view ;;
+		'c') [ "$S" != "TRUE" ] && { CPKG=TRUE; S=TRUE; } || info_view ;;
+		'i') PARM='-i' ;;
+		'?') info_view ;;
+	esac
+done
+
+
+# ### Verificar Dependências Faltantes ###
+
+[ "$CLIB" == "TRUE" ] && {
+	[ ! $(($#-1)) -eq 1 ] && {
+		printf "\n${R}Muitos Parâmetros !$T\n\n" >&2
+		exit 1
+	}
+
+	[ ! -e $ARG ] && {
+		printf "\n${R}Arquivo Inexistente !$T\n\n" >&2
+		exit 1
+	}
+
+	CKBIN=$(ldd $ARG 2>&-)
+
+	[ -z "$CKBIN" ] && {
+		printf "\n${R}Não é um Executável Binário Válido !$T\n\n" >&2
+		exit 1
+	}
+
+	CKLIB=$(awk -F= '{print $1}' <(grep '=> not found' <<< $CKBIN))
+	printf "\n${Y}Dependências Faltantes: $B($(wc -w <<< $CKLIB))$R\n$CKLIB$T\n\n"
+	exit 0
+}
+
+
+# ### Operações para Pesquisas ###
+
+cd /var/log/packages
+LST=$(printf "%s\n" *)
+
+
+# ### Pesquisa de Pacotes ###
+
+[ "$SPKG" == "TRUE" ] && {
+	for PKG in $ARG
+	{
+		FOUND=$(echo -e "$FOUND\n$(grep $PARM "$PKG" <<< $LST)")
+	}
+	FOUND=$(sort -u <<< $FOUND)
+	printf "\n${Y}Pacotes Encontrados: $B($(wc -w <<< $FOUND))$C$(sed "s/^/	/" <(sort <<< $FOUND))$T\n\n"
+	exit 0
+}
+
+
+# ### Pesquisa Avançada de Pacotes ###
+
+[ "$APKG" == "TRUE" ] && {
+	for PKG in $ARG
+	{
+		VERIFY=$(grep $PARM "^$PKG-[0-9]" <<< $LST)
+		[ ! "$VERIFY" ] && NOTFOUND=$(echo -e "$NOTFOUND\n\t$PKG") || FOUND=$(echo -e "$FOUND\n\t$VERIFY")
+	}
+	printf "\n${Y}Pacotes Encontrados: $B($(wc -w <<< $FOUND))$G$(sort <<< $FOUND)$T\n"
+	printf "\n${Y}Pacotes Não Encontrados: $B($(wc -w <<< $NOTFOUND))$R$(sort <<< $NOTFOUND)$T\n\n"
+	exit 0
+}
+
+
+# ### Pesquisa no Conteúdo do Pacote ###
+
+[ "$CPKG" == "TRUE" ] && {
+	for PKG in $(sort <(fmt -1 <<< $ARG))
+	{
+		CNTPKG=$(grep $PARM "$PKG" <(grep -vE ':|/doc/|install/|/$' $LST))
+		CNTPKG=$(sed "s|:\([[:alnum:]]*[[:punct:]]*\)*||g" <<< $CNTPKG)
+		NMPKG=$(sed "s/^/\t/g" <(sort -u <<< $CNTPKG))
+		FOUND=$(echo -e "$FOUND\n\n$Y$PKG: $B($(wc -w <<< $NMPKG)) \n$C$NMPKG$T")
+	}
+	printf "$(sed "1d" <<< $FOUND)\n\n"
+	exit 0
+}; info_view
