@@ -13,7 +13,6 @@
             <img src="https://img.shields.io/github/last-commit/mxnt10/ckdeps?color=blue&label=Last%20Commit&style=flat-square"/>
             <img src="https://img.shields.io/github/release-date/mxnt10/ckdeps?color=blue&label=Release%20Date&style=flat-square"/>
             <img src="https://img.shields.io/github/repo-size/mxnt10/ckdeps?color=blue&label=Repo%20Size&style=flat-square"/>
-            <img src="https://img.shields.io/github/directory-file-count/mxnt10/ckdeps?color=blue&label=Repo%20Files&style=flat-square"/>
             <img src="https://img.shields.io/github/downloads/mxnt10/ckdeps/total?color=blue&label=Downloads&style=flat-square">
             <a href="https://github.com/mxnt10/ckdeps/stargazers">
                 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mxnt10/ckdeps?color=blue&label=GitHub%20Stars&style=flat-square">
