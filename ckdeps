@@ -111,7 +111,7 @@ lst=$(printf "%s\n" *)
 [ "$spkg" == "TRUE" ] && {
     for pkg in $arg
     {
-        found=$(echo -e "$found\n$(grep "$parm" "$pkg" <<< $lst)")
+        found=$(echo -e "$found\n$(grep "$parm $pkg" <<< $lst)")
     }
     found=$(sort -u <<< $found)
     printf "\n${y}Pacotes Encontrados: $b($(wc -w <<< $found))$c$(sed "s/^/	/" <<< $found)$t\n\n"
