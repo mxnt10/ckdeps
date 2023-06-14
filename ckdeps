@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# CKDeps - Versão 6.2 - Analisa as Dependências dos Aplicativos Binários Instalado no Slackware
+# CKDeps - Versão 6.2.1 - Analisa Dependências de Aplicativos Binários Instalado no Slackware
 #
 # Criação do Projeto: 04/04/2021
 # Última Atualização: 20/05/2023
