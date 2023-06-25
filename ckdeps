@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# CKDeps - Versão 6.2.1 - Analisa Dependências de Aplicativos Binários Instalado no Slackware
+# CKDeps - Versão 6.2.2 - Analisa Dependências de Aplicativos Binários Instalado no Slackware
 #
 # Criação do Projeto: 04/04/2021
-# Última Atualização: 20/05/2023
+# Última Atualização: 25/06/2023
 #
 # By Mauricio Ferrari. Santa Catarina, Brasil.
 #
@@ -111,7 +111,7 @@ lst=$(printf "%s\n" *)
 [ "$spkg" == "TRUE" ] && {
     for pkg in $arg
     {
-        found=$(echo -e "$found\n$(grep "$parm $pkg" <<< $lst)")
+        found=$(echo -e "$found\n$(grep $parm "$pkg" <<< $lst)")
     }
     found=$(sort -u <<< $found)
     printf "\n${y}Pacotes Encontrados: $b($(wc -w <<< $found))$c$(sed "s/^/	/" <<< $found)$t\n\n"
@@ -124,7 +124,7 @@ lst=$(printf "%s\n" *)
 [ "$apkg" == "TRUE" ] && {
     for pkg in $arg
     {
-        verify=$(grep "$parm" "^$pkg-[0-9]" <<< $lst)
+        verify=$(grep $parm "^$pkg-[0-9]" <<< $lst)
         [ ! "$verify" ] && notfound=$(echo -e "$notfound\n\t$pkg") || found=$(echo -e "$found\n\t$verify")
     }
     printf "\n${y}Pacotes Encontrados: $b($(wc -w <<< $found))$g$(sort <<< $found)$t\n"
@@ -138,7 +138,7 @@ lst=$(printf "%s\n" *)
 [ "$cpkg" == "TRUE" ] && {
     for pkg in $(sort <(fmt -1 <<< $arg))
     {
-        cntpkg=$(grep "$parm" "$pkg" <(grep -vE ':|/doc/|install/|/$' $lst))
+        cntpkg=$(grep $parm "$pkg" <(grep -vE ':|/doc/|install/|/$' $lst))
         cntpkg=$(sed "s|:\([[:alnum:]]*[[:punct:]]*\)*||g" <<< $cntpkg)
         nmpkg=$(sed "s/^/\t/g" <(sort -u <<< $cntpkg))
         found=$(echo -e "$found\n\n$y$pkg: $b($(wc -w <<< $nmpkg)) \n$c$nmpkg$t")
